@@ -1,6 +1,4 @@
-# SmartContractSafetyLists
-智能合约安全问题整理
-
+# 智能合约安全问题整理
 
 ## 1. 重入攻击（Reentrancy Attack）
 
