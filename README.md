@@ -1,12 +1,12 @@
 # 智能合约安全问题整理
 
-- [重入攻击（Reentrancy Attack）](#1-重入攻击reentrancy-attack)
-- [前端交易攻击（Front-running Attack）](#2-前端交易攻击front-running-attack)
-- [Gas耗尽攻击](#3-gas耗尽攻击)
-- [可预测随机数攻击（Predictable Random Number Attack）](#4-可预测随机数攻击predictable-random-number-attack)
-- [权限控制问题（Access Control Issues）](#5-权限控制问题access-control-issues)
-- [短地址攻击（Short Address Attack）](#6-短地址攻击short-address-attack)
-- [整数溢出和下溢（Integer Overflow and Underflow）](#7-整数溢出和下溢integer-overflow-and-underflow)
+1. [重入攻击（Reentrancy Attack）](#1-重入攻击reentrancy-attack)
+2. [前端交易攻击（Front-running Attack）](#2-前端交易攻击front-running-attack)
+3. [Gas耗尽攻击](#3-gas耗尽攻击)
+4. [可预测随机数攻击（Predictable Random Number Attack）](#4-可预测随机数攻击predictable-random-number-attack)
+5. [权限控制问题（Access Control Issues）](#5-权限控制问题access-control-issues)
+6. [短地址攻击（Short Address Attack）](#6-短地址攻击short-address-attack)
+7. [整数溢出和下溢（Integer Overflow and Underflow）](#7-整数溢出和下溢integer-overflow-and-underflow)
 
 ## 1. 重入攻击（Reentrancy Attack）
 
