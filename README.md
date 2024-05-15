@@ -2,11 +2,10 @@
 
 1. [重入攻击（Reentrancy Attack）](#1-重入攻击reentrancy-attack)
 2. [前端交易攻击（Front-running Attack）](#2-前端交易攻击front-running-attack)
-3. [Gas耗尽攻击](#3-gas耗尽攻击)
-4. [可预测随机数攻击（Predictable Random Number Attack）](#4-可预测随机数攻击predictable-random-number-attack)
-5. [权限控制问题（Access Control Issues）](#5-权限控制问题access-control-issues)
-6. [短地址攻击（Short Address Attack）](#6-短地址攻击short-address-attack)
-7. [整数溢出和下溢（Integer Overflow and Underflow）](#7-整数溢出和下溢integer-overflow-and-underflow)
+3. [可预测随机数攻击（Predictable Random Number Attack）](#3-可预测随机数攻击predictable-random-number-attack)
+4. [权限控制问题（Access Control Issues）](#4-权限控制问题access-control-issues)
+5. [短地址攻击（Short Address Attack）](#5-短地址攻击short-address-attack)
+6. [整数溢出和下溢（Integer Overflow and Underflow）](#6-整数溢出和下溢integer-overflow-and-underflow)
 
 ## 1. 重入攻击（Reentrancy Attack）
 
@@ -65,13 +64,7 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 通过提交-揭示机制、设置滑点保护、增强隐私保护（如零知识证明）等方案来解决。
 
-## 3. Gas耗尽攻击
-
-攻击者发起非常消耗Gas的复杂交易，让Gas耗尽，从而交易失败，后续造成合约不能正常使用。
-
-理论上，EVM的事务机制会保证，交易的Gas耗尽时，所有状态会回滚到交易开始前的状态。所以理论上不存在Gas耗尽的问题，但事实上，在实践中，设计不合理的合约在Gas耗尽后，会间接导致用户感知到的资金和操作被“锁定”。
-
-## 4. 可预测随机数攻击（Predictable Random Number Attack）
+## 3. 可预测随机数攻击（Predictable Random Number Attack）
 
 如果智能合约只是使用链上公开的数据（例如区块哈希、时间戳、区块号等）来生成随机数，那么随机数是可被预测的。攻击者提前预测随机数结果，这会让游戏、彩票、抽奖等依赖随机数的DApp应用受攻击。
 
@@ -81,20 +74,26 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 - **多方生成随机数**：多个参与方来提交多个生成随机数的种子，减少单一方控制随机数的风险。方案的好处是去中心化，难预测，问题是系统实现比较复杂。
 - **延迟随机数生成**：在一个区块中先提交请求，未来的区块再生成随机数，攻击者很难预测未来区块的状态。这种方案虽然随机数难预测，但是随机数还是依靠区块数据生成，本身也没有那么随机。
 
-## 5. 权限控制问题（Access Control Issues）
+## 4. 权限控制问题（Access Control Issues）
 
 合约中重要敏感的函数，没有设置权限验证，被攻击者调用。
 
 **权限控制解决方案**：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。其中，Ownable协议适合简单权限控制，AccessControl适合多角色和权限的管理。
 
-## 6. 短地址攻击（Short Address Attack）
+## 5. 短地址攻击（Short Address Attack）
 
 EVM对于不完整的地址，会在地址尾部自动补0，所以攻击者会故意构造不完整的缩短地址，传入合约函数，让合约处理错误的地址。
 
 **短地址攻击解决方案**: 使用OpenZeppelin的RC20标准提供的地址操作函数（例如转账）。
 
-## 7. 整数溢出和下溢（Integer Overflow and Underflow）
+## 6. 整数溢出和下溢（Integer Overflow and Underflow）
 
 当算术操作超过数据类型的最大或最小值时，会导致意外的行为。
 
 解决方案：使用SafeMath库来进行安全的算术操作。
+
+<!-- ## 3. Gas耗尽攻击
+
+攻击者发起非常消耗Gas的复杂交易，让Gas耗尽，从而交易失败，后续造成合约不能正常使用。
+
+理论上，EVM的事务机制会保证，交易的Gas耗尽时，所有状态会回滚到交易开始前的状态。所以理论上不存在Gas耗尽的问题，但事实上，在实践中，设计不合理的合约在Gas耗尽后，会间接导致用户感知到的资金和操作被“锁定”。 -->
