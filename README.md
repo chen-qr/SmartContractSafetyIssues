@@ -22,72 +22,9 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 - 内部调用：合约内部函数之间的调用，也会产生调用栈，但执行控制权不会离开合约。
 - 外部调用：一个合约调用另一个合约的函数，或者通过call、delegatecall、staticcall等方法进行调用，会把执行控制权转移给外部合约。
 
-### 避免重入攻击（一）：先更新数据、再外部调用
+### 重入攻击解决办法
 
-```solidity
-pragma solidity ^0.8.0;
-
-contract SafeContract {
-    mapping(address => uint256) public balances;
-
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
-
-    // ✅正确代码：先更新数据、再外部调用
-    function withdraw(uint256 amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-
-        // 先更新余额
-        balances[msg.sender] -= amount;
-
-        // 再发送以太币
-        (bool success, ) = msg.sender.call{value: amount}("");
-        require(success, "Transfer failed");
-    }
-
-    // ❌错误代码：先外部调用、采取更新余额，会被重入攻击，造成余额损失
-    function withdraw(uint256 amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-
-        // 发送以太币给请求者
-        (bool success, ) = msg.sender.call{value: amount}("");
-        require(success, "Transfer failed");
-
-        // 更新余额
-        balances[msg.sender] -= amount;
-    }
-}
-```
-
-### 避免重入攻击（二）：使用ReentrancyGuard修饰符
-
-ReentrancyGuard修饰符是OpenZeppelin提供的一个工具，用于防止重入攻击。
-
-它通过在合约函数开始和结束时设置一个状态变量来实现，这个变量在函数执行期间**锁定**，从而阻止同一合约的嵌套调用。类似于传统多线程开发中的互斥锁。
-
-```solidity
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-
-// 第一步，使用 ReentrancyGuard
-contract SafeContract is ReentrancyGuard {
-    mapping(address => uint256) public balances;
-
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
-
-    // 第二步，使用 nonReentrant
-    function withdraw(uint256 amount) public nonReentrant {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-        balances[msg.sender] -= amount;
-        (bool success, ) = msg.sender.call{value: amount}("");
-        require(success, "Transfer failed");
-    }
-}
-```
+[重入攻击解决办法](./readmes/1_重入攻击解决办法.md)
 
 
 ## 2. 短地址攻击
