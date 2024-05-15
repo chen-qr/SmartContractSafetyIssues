@@ -28,7 +28,7 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 ## 2. 权限控制问题（Access Control Issues）
 
-合约中重要敏感的操作，没有设置权限验证，被攻击者调用。
+合约中重要敏感的函数，没有设置权限验证，被攻击者调用。
 
 **权限控制解决方案**：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。其中，Ownable协议适合简单权限控制，AccessControl适合多角色和权限的管理。
 
