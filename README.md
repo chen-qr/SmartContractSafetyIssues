@@ -31,7 +31,7 @@ EVM是单线程执行模型，该模型决定了智能合约的执行控制权�
 
 #### c. 重入攻击解决方案
 
-使用OpenZeppelin的ReentrancyGuard形成互斥锁，[查看详解](./readmes/2_重入攻击解决办法.md) 
+使用OpenZeppelin的ReentrancyGuard形成互斥锁，[重入攻击解决办法代码说明](./readmes/2_重入攻击解决办法.md) 
 
 ## 2. 前端交易攻击（Front-running Attack）
 
