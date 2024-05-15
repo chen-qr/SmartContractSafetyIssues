@@ -60,6 +60,36 @@ contract SafeContract {
 }
 ```
 
+### 避免重入攻击（二）：使用ReentrancyGuard修饰符
+
+ReentrancyGuard修饰符是OpenZeppelin提供的一个工具，用于防止重入攻击。
+
+它通过在合约函数开始和结束时设置一个状态变量来实现，这个变量在函数执行期间**锁定**，从而阻止同一合约的嵌套调用。类似于传统多线程开发中的互斥锁。
+
+```solidity
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+// 第一步，使用 ReentrancyGuard
+contract SafeContract is ReentrancyGuard {
+    mapping(address => uint256) public balances;
+
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    // 第二步，使用 nonReentrant
+    function withdraw(uint256 amount) public nonReentrant {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+        balances[msg.sender] -= amount;
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer failed");
+    }
+}
+```
+
+
 ## 2. 短地址攻击
 
 利用以太坊合约中参数解析的漏洞，攻击者通过发送短地址来引起合约解析错误，进而执行恶意行为。
