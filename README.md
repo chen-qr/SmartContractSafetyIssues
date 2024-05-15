@@ -24,7 +24,15 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 ### [重入攻击解决办法](./readmes/1_重入攻击解决办法.md)
 
-## 2. 短地址攻击（Short Address Attack）
+## 2. 权限控制问题（Access Control Issues）
+
+合约中重要敏感的操作，没有设置权限验证，被攻击者调用。
+
+解决方案：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。
+
+Ownable协议适合简单权限控制；AccessControl适合多角色和权限的管理。
+
+## 3. 短地址攻击（Short Address Attack）
 
 利用以太坊合约中参数解析的漏洞，攻击者通过发送短地址来引起合约解析错误，进而执行恶意行为。
 
@@ -36,14 +44,8 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 解决方案: 使用OpenZeppelin的RC20标准提供的地址转账操作。
 
-## 3. 整数溢出和下溢（Integer Overflow and Underflow）
+## 4. 整数溢出和下溢（Integer Overflow and Underflow）
 
 当算术操作超过数据类型的最大或最小值时，会导致意外的行为。
 
 解决方案：使用SafeMath库来进行安全的算术操作。
-
-## 3. 权限控制问题（Access Control Issues）
-
-合约中重要敏感的操作，没有设置权限验证，被攻击者调用。
-
-解决方案：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。
