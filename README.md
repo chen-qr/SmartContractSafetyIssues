@@ -24,13 +24,13 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 ### 
 
-重入攻击解决方案：[（详解）](./readmes/1_重入攻击解决办法.md) 使用OpenZeppelin的ReentrancyGuard形成互斥锁
+**重入攻击解决方案**：[（详解）](./readmes/1_重入攻击解决办法.md) 使用OpenZeppelin的ReentrancyGuard形成互斥锁
 
 ## 2. 权限控制问题（Access Control Issues）
 
 合约中重要敏感的操作，没有设置权限验证，被攻击者调用。
 
-解决方案：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。
+**权限控制解决方案**：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。
 
 Ownable协议适合简单权限控制；AccessControl适合多角色和权限的管理。
 
