@@ -32,14 +32,28 @@ EVM是**单线程**执行模型，该模型决定了智能合约的执行控制�
 
 **权限控制解决方案**：使用权限控制模式，如OpenZeppelin的Ownable协议或AccessControl协议。其中，Ownable协议适合简单权限控制，AccessControl适合多角色和权限的管理。
 
-## 3. 短地址攻击（Short Address Attack）
+## 3. 交易顺序依赖（Transaction Order Dependence, TOD）
+
+区块链上交易是顺序执行的，而交易顺序是由矿工决定的。攻击者可以故意操控交易顺序来影响合约的执行结果。
+
+例如，在去中心化交易所（DEX）中，攻击者监听到某用户准备进行大额交易，从而导致价格波动。攻击者提前发送自己的交易买入代币，然后利用该用户的大额交易提升价格，最后在价格变动后卖出获利。
+
+
+
+## 4. 竞态条件（Race Conditions）
+
+## 5. 可预测的随机数（Predictable Randomness）
+
+## 6. 短地址攻击（Short Address Attack）
 
 EVM对于不完整的地址，会在地址尾部自动补0，所以攻击者会故意构造不完整的缩短地址，传入合约函数，让合约处理错误的地址。
 
-解决方案: 使用OpenZeppelin的RC20标准提供的地址操作函数（例如转账）。
+**短地址攻击解决方案**: 使用OpenZeppelin的RC20标准提供的地址操作函数（例如转账）。
 
-## 4. 整数溢出和下溢（Integer Overflow and Underflow）
+## 7. 整数溢出和下溢（Integer Overflow and Underflow）
 
 当算术操作超过数据类型的最大或最小值时，会导致意外的行为。
 
 解决方案：使用SafeMath库来进行安全的算术操作。
+
+## 8. 未处理的异常
