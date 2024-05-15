@@ -1,7 +1,7 @@
 # 智能合约安全问题整理
 
-1. [重入攻击（Reentrancy Attack）](#1-重入攻击reentrancy-attack)
-2. [前端交易攻击（Front-running Attack）](#2-前端交易攻击front-running-attack)
+- [重入攻击（Reentrancy Attack）](#1-重入攻击reentrancy-attack)
+- [前端交易攻击（Front-running Attack）](#2-前端交易攻击front-running-attack)
 
 ## 1. 重入攻击（Reentrancy Attack）
 
